@@ -12,12 +12,15 @@
 
 NAME = fractol
 HEADER = -I ./includes -I ./libft/includes 
-FLAGS = -Wall -Werror -Wextra
+# FLAGS = -Wall -Werror -Wextra
 LIBFLAGS = libft/libft.a -lmlx -framework OpenGL -framework AppKit
 OBJ_DIR = obj
 SRC_DIR = src
 
-LIST =	main
+LIST =	draw \
+		init \
+		key_hook \
+		main
 
 SRC = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(LIST)))
 OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(LIST)))
