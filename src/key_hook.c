@@ -19,27 +19,34 @@ int			move_with_mouse(int x, int y, t_view *view)
 
 int			mouse_controls(int event, int x, int y, t_view *view)
 {
-	// if (event == MOUSE_LEFT)
-	// {
-	// 	printf("left %i %i\n", x, y);
-	// }
-	// if (event == MOUSE_RIGHT)
-	// {
-	// 	printf("right\n");
-	// }
-	view->mouse_x = WIN_HEIGHT / ((float)WIN_HEIGHT / x);
-	view->mouse_y = WIN_WIDTH / ((float)WIN_WIDTH / y);
-	if (event == MOUSE_UP)
+	float	re_coord;
+	float	im_coord;
+
+
+	x = 0;
+	y= 0;
+	// x = WIN_WIDTH / 2;
+	// y = WIN_HEIGHT / 2;
+	if (event == MOUSE_UP || event == MOUSE_DOWN)
 	{
-		view->zoom *= 2;
-		
+		re_coord = view->re_min + ((float)x / WIN_WIDTH) * view->delta_re;
+		im_coord = view->im_min + ((WIN_HEIGHT - (float)y) / WIN_HEIGHT) * view->delta_im;
+		if (event == MOUSE_UP)
+		{
+			view->delta_re *= (float)9 / 10;
+			view->delta_im *= (float)9 / 10;
+		}
+		else
+		{
+			view->delta_re *= (float)10 / 9;
+			view->delta_im *= (float)10 / 9;
+		}
+		view->re_min = re_coord - ((float)x / WIN_WIDTH) * view->delta_re;
+		view->im_min = im_coord - ((WIN_HEIGHT - (float)y) / WIN_HEIGHT) * view->delta_im;
+		printf("re_min: %f im_min: %f\n", view->re_min, view->im_min);
+		// view->min_re = view->min_re + x / WIN_WIDTH * 0.1;
 	}
-	if (event == MOUSE_DOWN)
-	{
-		if (view->zoom != 1)
-			view->zoom /= 2;
-	}
-	// ft_bzero(view->img.img, WIN_WIDTH * WIN_HEIGHT * view->img.bits_per_pixel);
+	ft_bzero(view->img.img, WIN_WIDTH * WIN_HEIGHT * view->img.bits_per_pixel);
 	draw_mandelbrot(view);
 	return (0);
 }
@@ -55,17 +62,26 @@ int		key_hook(int key, void *v)
 		view->depth++;
 		printf("depth: %i\n", view->depth);
 	}
-	key == KEY_LEFT ? view->move_x -= 0.1 / view->zoom : 0;
-	key == KEY_RIGHT ? view->move_x += 0.1 / view->zoom : 0;
-	key == KEY_UP ? view->move_y -= 0.1 / view->zoom : 0;
-	key == KEY_DOWN ? view->move_y += 0.1 / view->zoom : 0;
 
-	key == KEY_PLUS ? view->zoom *= 2 : 0;
-	if (key == KEY_MINUS)
-	{
-		if (view->zoom != 1)
-			view->zoom /= 2;
-	}
+	// float delta = view->re_max - view->re_min;
+
+	if (key == KEY_LEFT)
+		view->re_min -= 0.05 * view->delta_re;
+	if (key == KEY_RIGHT)
+		view->re_min += 0.05 * view->delta_re;
+	if (key == KEY_UP)
+		view->im_min += 0.05 * view->delta_im;
+	if (key == KEY_DOWN)
+		view->im_min -= 0.05 * view->delta_im;
+
+
+	// key == KEY_PLUS ? view->zoom *= 2 : 0;
+	// if (key == KEY_MINUS)
+	// {
+	// 	if (view->zoom != 1)
+	// 		view->zoom /= 2;
+	// }
+	printf("re_min: %f im_min: %f\n", view->re_min, view->im_min);
 
 	ft_bzero(view->img.img, WIN_WIDTH * WIN_HEIGHT * view->img.bits_per_pixel);
 	draw_mandelbrot(view);

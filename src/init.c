@@ -28,17 +28,17 @@ t_view			init(void)
 	view.win_ptr = mlx_new_window(view.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "fractol");
 
 	view.depth = 20;
-	view.zoom = 1;
-	view.move_x = 0;
-	view.move_y = 0;
+
+	// view.move_x = 0;
+	// view.move_y = 0;
 
 	// view.mouse_x = 0.5 * WIN_HEIGHT;
 	// view.mouse_y = 0.5 * WIN_WIDTH;
 
 	view.re_min = -2;
-	view.re_max = 1;
+	view.delta_re = 4;
 	view.im_min = -1;
-	view.im_max = 1;
+	view.delta_im = 2;
 	init_img(&view);
 	return (view);
 }

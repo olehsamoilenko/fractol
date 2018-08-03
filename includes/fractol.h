@@ -67,17 +67,19 @@ typedef struct	s_view
 	void		*win_ptr;
 
 	int			depth;
-	float		move_x;
-	float		move_y;
-	int			zoom;
+	// float		move_x;
+	// float		move_y;
+	// int			zoom;
 
 	int			mouse_x;
 	int			mouse_y;
 
 	float		re_min;
-	float		re_max;
+	float		delta_re;
+	// float		re_max;
 	float		im_min;
-	float		im_max;
+	float		delta_im;
+	// float		im_max;
 
 	t_img		img;
 }				t_view;

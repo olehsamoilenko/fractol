@@ -45,20 +45,20 @@ void	draw_mandelbrot(t_view *view)
 	float	tmp_im;
 	int		iter;
 
-	float	delta_re;
-	float	delta_im;
+	float	step_re;
+	float	step_im;
 
 
-	delta_re = (view->re_max - view->re_min) / (WIN_WIDTH - 1);
-	delta_im = (view->im_max - view->im_min) / (WIN_HEIGHT - 1);
+	step_re = view->delta_re / (WIN_WIDTH - 1);
+	step_im = view->delta_im / (WIN_HEIGHT - 1);
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		dot.c_im = view->im_min + (WIN_WIDTH - y) * delta_im; // +-ok 
+		dot.c_im = view->im_min + (WIN_WIDTH - y) * step_im; // +-ok 
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
-			dot.c_re = view->re_min + x * delta_re; // ok
+			dot.c_re = view->re_min + x * step_re; // ok
 			dot.z_im = dot.c_im;
 			dot.z_re = dot.c_re;
 			iter = -1;

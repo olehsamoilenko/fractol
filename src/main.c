@@ -31,7 +31,7 @@ int		main(int args, char **argv)
 		exit(0);
 	}
 	view = init();
-	// draw(&view);
+	draw_mandelbrot(&view);
 	mlx_hook(view.win_ptr, EVENT_KEYS, 0, key_hook, &view);
 	mlx_hook(view.win_ptr, EVENT_CLOSE, 0, exit_func, 0);
 
