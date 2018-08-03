@@ -20,47 +20,25 @@ static void		init_img(t_view *view)
 	view->img.bits_per_pixel /= 8;
 }
 
-t_dot			**init_values(void)
-{
-	int		i;
-	int		j;
-	t_dot	**values;
-	float	delta_re;
-	float	delta_im;
-
-	delta_re = (float)(RE_MAX - RE_MIN) / (WIN_WIDTH - 1);
-	delta_im = (float)(IM_MAX - IM_MIN) / (WIN_HEIGHT - 1);
-	// printf("dre: %f dim: %f\n", delta_re, delta_im);
-	values = (t_dot**)ft_memalloc(WIN_HEIGHT * sizeof(t_dot*));
-	i = -1;
-	while (++i < WIN_HEIGHT)
-	{
-		values[i] = (t_dot*)ft_memalloc(WIN_WIDTH * sizeof(t_dot));
-		j = -1;
-		while (++j < WIN_WIDTH)
-		{
-			values[i][j].c_re = 1.5 * (i - WIN_WIDTH / 2) * 2 / WIN_WIDTH;
-			values[i][j].c_im = (j - WIN_HEIGHT / 2) * 2 / WIN_HEIGHT;
-			// values[i][j].c_re = 0;
-			// values[i][j].c_im = 0;
-			// values[i][j].z_re = RE_MIN + delta_re * j;
-			// values[i][j].z_im = IM_MAX - delta_im * i;
-			values[i][j].z_re = 0;
-			values[i][j].z_im = 0;
-			// printf("(%i,%i) re: %f im: %f\n", i, j, values[i][j].re, values[i][j].im);
-		}
-	}
-	return (values);
-	
-}
-
 t_view			init(void)
 {
 	t_view	view;
 
 	view.mlx_ptr = mlx_init();
 	view.win_ptr = mlx_new_window(view.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "fractol");
-	view.values = init_values();
+
+	view.depth = 20;
+	view.zoom = 1;
+	view.move_x = 0;
+	view.move_y = 0;
+
+	// view.mouse_x = 0.5 * WIN_HEIGHT;
+	// view.mouse_y = 0.5 * WIN_WIDTH;
+
+	view.re_min = -2;
+	view.re_max = 1;
+	view.im_min = -1;
+	view.im_max = 1;
 	init_img(&view);
 	return (view);
 }

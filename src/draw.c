@@ -25,22 +25,91 @@ int		rgb_to_color(unsigned char r, unsigned char g, unsigned char b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	draw(t_view *view)
+int		iterating_rgb(int iter, int depth)
+{
+	if (iter == depth)
+		return (0);
+	else
+	{
+		// printf("%i\n", iter / depth * 200);
+		return (rgb_to_color((float)iter / (float)depth * 200, 0, 0));
+	}
+}
+
+void	draw_mandelbrot(t_view *view)
 {
 	int		x;
 	int		y;
+	t_dot	dot;
+	float	tmp_re;
+	float	tmp_im;
+	int		iter;
 
+	float	delta_re;
+	float	delta_im;
+
+
+	delta_re = (view->re_max - view->re_min) / (WIN_WIDTH - 1);
+	delta_im = (view->im_max - view->im_min) / (WIN_HEIGHT - 1);
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
+		dot.c_im = view->im_min + (WIN_WIDTH - y) * delta_im; // +-ok 
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
-			if (view->values[y][x].z_re * view->values[y][x].z_re -
-				view->values[y][x].z_im * view->values[y][x].z_im < 4)
-				pixel_put_img(view, x, y, rgb_to_color(200, 0, 0));
+			dot.c_re = view->re_min + x * delta_re; // ok
+			dot.z_im = dot.c_im;
+			dot.z_re = dot.c_re;
+			iter = -1;
+			while (++iter < view->depth)
+			{
+				if (dot.z_re * dot.z_re + dot.z_im * dot.z_im > 4)
+					break ;
+				tmp_re = dot.z_re * dot.z_re - dot.z_im * dot.z_im + dot.c_re;
+				tmp_im = 2 * dot.z_re * dot.z_im + dot.c_im;
+				dot.z_re = tmp_re;
+				dot.z_im = tmp_im;
+			}
+			pixel_put_img(view, x, y, iterating_rgb(iter, view->depth));
 		}
 	}
 	mlx_put_image_to_window(view->mlx_ptr, view->win_ptr,
 		view->img.img_ptr, 0, 0);
 }
+
+// void	draw_mandelbrot(t_view *view)
+// {
+// 	int		x;
+// 	int		y;
+// 	t_dot	dot;
+// 	float	tmp_re;
+// 	float	tmp_im;
+// 	int		iter;
+
+// 	y = -1;
+// 	while (++y < WIN_HEIGHT)
+// 	{
+// 		x = -1;
+// 		while (++x < WIN_WIDTH)
+// 		{
+// 			dot.z_re = 0;
+// 			dot.z_im = 0;
+// 			dot.c_re = (x - 0.5 * WIN_HEIGHT) / (0.5 * view->zoom * WIN_WIDTH) + view->move_x; //solve
+// 			dot.c_im = (y - 0.5 * WIN_WIDTH) / (0.5 * view->zoom * WIN_HEIGHT) + view->move_y; //solve
+// 			iter = -1;
+// 			while (++iter < view->depth)
+// 			{
+// 				if (dot.z_re * dot.z_re + dot.z_im * dot.z_im > 4)
+// 					break ;
+// 				tmp_re = dot.z_re * dot.z_re - dot.z_im * dot.z_im + dot.c_re;
+// 				tmp_im = 2 * dot.z_re * dot.z_im + dot.c_im;
+// 				dot.z_re = tmp_re;
+// 				dot.z_im = tmp_im;
+// 			}
+// 			pixel_put_img(view, x, y, iterating_rgb(iter, view->depth));
+// 		}
+// 	}
+// 	mlx_put_image_to_window(view->mlx_ptr, view->win_ptr,
+// 		view->img.img_ptr, 0, 0);
+// }
