@@ -17,7 +17,12 @@ static int	exit_func(void)
 	exit(1);
 }
 
-
+void	usage(void)
+{
+	ft_putstr("usage: ./fractol [fractal]\nAvaliable fractals:	mandelbrot,\n\
+			julia,\n			burning_ship,\n			mandelbar\n");
+	exit(0);
+}
 
 
 
@@ -25,17 +30,16 @@ int		main(int args, char **argv)
 {
 	t_view	view;
 
-	if (args != 2 || !ft_strequ(argv[1], "Mandelbrot"))
+	if (args != 2)
 	{
-		ft_putstr("usage: ./fractol [fractal]\nAvaliable fractals: Mandelbrot\n");
-		exit(0);
+		usage();
 	}
-	view = init();
-	draw_mandelbrot(&view);
+	view = init(argv[1]);
+	draw(&view);
 	mlx_hook(view.win_ptr, EVENT_KEYS, 0, key_hook, &view);
 	mlx_hook(view.win_ptr, EVENT_CLOSE, 0, exit_func, 0);
 
-	mlx_hook(view.win_ptr, 6, 0, move_with_mouse, &view); // ?
+	mlx_hook(view.win_ptr, EVENT_MOUSE, 0, move_with_mouse, &view); // ?
 	mlx_mouse_hook(view.win_ptr, mouse_controls, &view);
 	mlx_loop(view.mlx_ptr);
 	return (0);

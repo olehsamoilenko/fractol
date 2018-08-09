@@ -25,25 +25,47 @@ int		rgb_to_color(unsigned char r, unsigned char g, unsigned char b)
 	return (r << 16 | g << 8 | b);
 }
 
-int		iterating_rgb(int iter, int depth)
+int		iterating_rgb(int iter, t_view *view)
 {
-	if (iter == depth)
-		return (0);
-	else
+	if (view->color == 0 && iter != view->depth)
+		return (rgb_to_color((float)iter / (float)view->depth * 200, 0, 0));
+	else if (view->color == 1 && iter % 2 == 1)
+		return (rgb_to_color(200, 0, 0));
+	else if (view->color == 2)
 	{
-		// printf("%i\n", iter / depth * 200);
-		return (rgb_to_color((float)iter / (float)depth * 200, 0, 0));
+		if (iter % 4 == 0)
+			return (rgb_to_color(250, 0, 0));
+		else if (iter % 4 == 1)
+			return (rgb_to_color(0, 250, 0));
+		else if (iter % 4 == 2)
+			return (rgb_to_color(0, 0, 250));
+		else if (iter % 4 == 3)
+			return (rgb_to_color(255, 255, 0));
 	}
+	else if (view->color == 3)
+		return (rgb_to_color((float)iter / view->depth * 255,
+		(float)iter / view->depth * 255,
+		150 + (float)iter / view->depth * 155));
+	else if (view->color == 4)
+		return (rgb_to_color(sin(iter / view->depth) * 255,
+				cos(iter) * 255,
+				100 + (float)iter / view->depth * 155));
+	else if (view->color == 5)
+		return (rgb_to_color(cos((float)iter) * 100,
+				sin((float)iter) * 100,
+				1 - cos((float)iter)) * 150);
+	return (0);
 }
 
-void	draw_mandelbrot(t_view *view)
+
+
+void	draw(t_view *view)
 {
 	int		x;
 	int		y;
 	t_dot	dot;
-	float	tmp_re;
-	float	tmp_im;
-	int		iter;
+
+
 
 	float	step_re;
 	float	step_im;
@@ -54,62 +76,16 @@ void	draw_mandelbrot(t_view *view)
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		dot.c_im = view->im_min + (WIN_WIDTH - y) * step_im; // +-ok 
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
 			dot.c_re = view->re_min + x * step_re; // ok
-			dot.z_im = dot.c_im;
-			dot.z_re = dot.c_re;
-			iter = -1;
-			while (++iter < view->depth)
-			{
-				if (dot.z_re * dot.z_re + dot.z_im * dot.z_im > 4)
-					break ;
-				tmp_re = dot.z_re * dot.z_re - dot.z_im * dot.z_im + dot.c_re;
-				tmp_im = 2 * dot.z_re * dot.z_im + dot.c_im;
-				dot.z_re = tmp_re;
-				dot.z_im = tmp_im;
-			}
-			pixel_put_img(view, x, y, iterating_rgb(iter, view->depth));
+			dot.c_im = view->im_min - (WIN_HEIGHT - y) * step_im; // +-ok
+			
+			// pixel_put_img(view, x, y, iterating_rgb(view->iter_func[view->power - 1](dot, view), view->depth));
+			pixel_put_img(view, x, y, iterating_rgb(view->iter_func[view->power - 1](dot, view), view));
 		}
 	}
 	mlx_put_image_to_window(view->mlx_ptr, view->win_ptr,
 		view->img.img_ptr, 0, 0);
 }
-
-// void	draw_mandelbrot(t_view *view)
-// {
-// 	int		x;
-// 	int		y;
-// 	t_dot	dot;
-// 	float	tmp_re;
-// 	float	tmp_im;
-// 	int		iter;
-
-// 	y = -1;
-// 	while (++y < WIN_HEIGHT)
-// 	{
-// 		x = -1;
-// 		while (++x < WIN_WIDTH)
-// 		{
-// 			dot.z_re = 0;
-// 			dot.z_im = 0;
-// 			dot.c_re = (x - 0.5 * WIN_HEIGHT) / (0.5 * view->zoom * WIN_WIDTH) + view->move_x; //solve
-// 			dot.c_im = (y - 0.5 * WIN_WIDTH) / (0.5 * view->zoom * WIN_HEIGHT) + view->move_y; //solve
-// 			iter = -1;
-// 			while (++iter < view->depth)
-// 			{
-// 				if (dot.z_re * dot.z_re + dot.z_im * dot.z_im > 4)
-// 					break ;
-// 				tmp_re = dot.z_re * dot.z_re - dot.z_im * dot.z_im + dot.c_re;
-// 				tmp_im = 2 * dot.z_re * dot.z_im + dot.c_im;
-// 				dot.z_re = tmp_re;
-// 				dot.z_im = tmp_im;
-// 			}
-// 			pixel_put_img(view, x, y, iterating_rgb(iter, view->depth));
-// 		}
-// 	}
-// 	mlx_put_image_to_window(view->mlx_ptr, view->win_ptr,
-// 		view->img.img_ptr, 0, 0);
-// }
