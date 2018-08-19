@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-int	iter_burning_ship_1(t_dot dot, t_view *view)
+int	iter_burning_ship_1(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -21,7 +21,7 @@ int	iter_burning_ship_1(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -35,7 +35,7 @@ int	iter_burning_ship_1(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_burning_ship_2(t_dot dot, t_view *view)
+int	iter_burning_ship_2(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -44,7 +44,7 @@ int	iter_burning_ship_2(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -58,7 +58,7 @@ int	iter_burning_ship_2(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_burning_ship_3(t_dot dot, t_view *view)
+int	iter_burning_ship_3(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -67,7 +67,7 @@ int	iter_burning_ship_3(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -81,7 +81,7 @@ int	iter_burning_ship_3(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_burning_ship_4(t_dot dot, t_view *view)
+int	iter_burning_ship_4(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -90,7 +90,7 @@ int	iter_burning_ship_4(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -104,7 +104,7 @@ int	iter_burning_ship_4(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_burning_ship_5(t_dot dot, t_view *view)
+int	iter_burning_ship_5(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -113,7 +113,7 @@ int	iter_burning_ship_5(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;

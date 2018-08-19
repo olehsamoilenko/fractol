@@ -28,19 +28,19 @@ void	usage(void)
 
 int		main(int args, char **argv)
 {
-	t_view	view;
+	t_env	env;
 
 	if (args != 2)
 	{
 		usage();
 	}
-	view = init(argv[1]);
-	draw(&view);
-	mlx_hook(view.win_ptr, EVENT_KEYS, 0, key_hook, &view);
-	mlx_hook(view.win_ptr, EVENT_CLOSE, 0, exit_func, 0);
+	env = init(argv[1]);
+	draw(&env);
+	mlx_hook(env.win_ptr, EVENT_KEYS, 0, key_hook, &env);
+	mlx_hook(env.win_ptr, EVENT_CLOSE, 0, exit_func, 0);
 
-	mlx_hook(view.win_ptr, EVENT_MOUSE, 0, move_with_mouse, &view); // ?
-	mlx_mouse_hook(view.win_ptr, mouse_controls, &view);
-	mlx_loop(view.mlx_ptr);
+	mlx_hook(env.win_ptr, EVENT_MOUSE, 0, move_with_mouse, &env); // ?
+	mlx_mouse_hook(env.win_ptr, mouse_controls, &env);
+	mlx_loop(env.mlx_ptr);
 	return (0);
 }

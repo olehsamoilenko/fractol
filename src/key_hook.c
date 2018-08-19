@@ -12,18 +12,18 @@
 
 #include "fractol.h"
 
-int			move_with_mouse(int x, int y, t_view *view)
+int			move_with_mouse(int x, int y, t_env *env)
 {
-	if (view->mouse_on)
+	if (env->mouse_on)
 	{
-		view->mouse_x = x;
-		view->mouse_y = y;
+		env->mouse_x = x;
+		env->mouse_y = y;
 	}
-	draw(view);
+	draw(env);
 	return (0);
 }
 
-int			mouse_controls(int event, int x, int y, t_view *view)
+int			mouse_controls(int event, int x, int y, t_env *env)
 {
 	float	re_coord;
 	float	im_coord;
@@ -45,62 +45,62 @@ int			mouse_controls(int event, int x, int y, t_view *view)
 			k = (float)9/ 10;
 
 		}
-		view->delta_im *= k;
-		view->delta_re *= k;
-		view->re_min = view->re_min + ((float)x / WIN_WIDTH) * view->delta_re / k * (1 - k);
-		view->im_min = view->im_min - ((float)(WIN_HEIGHT - y) / WIN_HEIGHT) * view->delta_im / k * (1 - k);
-		// printf("re_min: %f im_min: %f\n", view->re_min, view->im_min);
+		env->delta_im *= k;
+		env->delta_re *= k;
+		env->re_min = env->re_min + ((float)x / WIN_WIDTH) * env->delta_re / k * (1 - k);
+		env->im_min = env->im_min - ((float)(WIN_HEIGHT - y) / WIN_HEIGHT) * env->delta_im / k * (1 - k);
+		// printf("re_min: %f im_min: %f\n", env->re_min, env->im_min);
 
 	}
-	ft_bzero(view->img.img, WIN_WIDTH * WIN_HEIGHT * view->img.bits_per_pixel);
-	draw(view);
+	ft_bzero(env->img.img, WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel);
+	draw(env);
 	return (0);
 }
 
 int		key_hook(int key, void *v)
 {
-	t_view		*view;
+	t_env		*env;
 
-	view = (t_view*)v;
+	env = (t_env*)v;
 	key == KEY_ESC ? exit(1) : 0;
 
 	if (key == KEY_C)
-		view->color = (view->color + 1) % 6;
+		env->color = (env->color + 1) % 6;
 	else if (key == KEY_SPACE)
-		view->mouse_on = (view->mouse_on + 1) % 2;
-	// float delta = view->re_max - view->re_min;
+		env->mouse_on = (env->mouse_on + 1) % 2;
+	// float delta = env->re_max - env->re_min;
 
 	if (key == KEY_LEFT)
-		view->re_min -= 0.05 * view->delta_re;
+		env->re_min -= 0.05 * env->delta_re;
 	if (key == KEY_RIGHT)
-		view->re_min += 0.05 * view->delta_re;
+		env->re_min += 0.05 * env->delta_re;
 	if (key == KEY_UP)
-		view->im_min -= 0.05 * view->delta_im;
+		env->im_min -= 0.05 * env->delta_im;
 	if (key == KEY_DOWN)
-		view->im_min += 0.05 * view->delta_im;
+		env->im_min += 0.05 * env->delta_im;
 
 	
 	if (key == KEY_ONE)
-		view->power = 1;
+		env->power = 1;
 	if (key == KEY_TWO)
-		view->power = 2;
+		env->power = 2;
 	if (key == KEY_THREE)
-		view->power = 3;
+		env->power = 3;
 	if (key == KEY_FOUR)
-		view->power = 4;
+		env->power = 4;
 	if (key == KEY_FIVE)
-		view->power = 5;
+		env->power = 5;
 
-	key == KEY_PLUS ? view->depth += 1 : 0;
+	key == KEY_PLUS ? env->depth += 1 : 0;
 	if (key == KEY_MINUS)
 	{
-		if (view->depth != 0)
-			view->depth -= 1;
+		if (env->depth != 0)
+			env->depth -= 1;
 	}
-	// printf("re_min: %f im_min: %f\n", view->re_min, view->im_min);
+	// printf("re_min: %f im_min: %f\n", env->re_min, env->im_min);
 
-	ft_bzero(view->img.img, WIN_WIDTH * WIN_HEIGHT * view->img.bits_per_pixel);
-	draw(view);
+	ft_bzero(env->img.img, WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel);
+	draw(env);
 
 	return (0);
 }

@@ -14,7 +14,7 @@
 
 
 
-int	iter_mandelbrot_1(t_dot dot, t_view *view)
+int	iter_mandelbrot_1(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -23,7 +23,7 @@ int	iter_mandelbrot_1(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -35,7 +35,7 @@ int	iter_mandelbrot_1(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_mandelbrot_2(t_dot dot, t_view *view)
+int	iter_mandelbrot_2(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -44,7 +44,7 @@ int	iter_mandelbrot_2(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -56,7 +56,7 @@ int	iter_mandelbrot_2(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_mandelbrot_3(t_dot dot, t_view *view)
+int	iter_mandelbrot_3(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -65,7 +65,7 @@ int	iter_mandelbrot_3(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -77,7 +77,7 @@ int	iter_mandelbrot_3(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_mandelbrot_4(t_dot dot, t_view *view)
+int	iter_mandelbrot_4(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -86,7 +86,7 @@ int	iter_mandelbrot_4(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -99,7 +99,7 @@ int	iter_mandelbrot_4(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_mandelbrot_5(t_dot dot, t_view *view)
+int	iter_mandelbrot_5(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -108,7 +108,7 @@ int	iter_mandelbrot_5(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -122,7 +122,7 @@ int	iter_mandelbrot_5(t_dot dot, t_view *view)
 
 
 
-int	iter_new_1(t_dot dot, t_view *view)
+int	iter_new_1(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -131,7 +131,7 @@ int	iter_new_1(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -143,7 +143,7 @@ int	iter_new_1(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_new_2(t_dot dot, t_view *view)
+int	iter_new_2(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -152,7 +152,7 @@ int	iter_new_2(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -164,7 +164,7 @@ int	iter_new_2(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_new_3(t_dot dot, t_view *view)
+int	iter_new_3(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -173,7 +173,7 @@ int	iter_new_3(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -185,7 +185,7 @@ int	iter_new_3(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_new_4(t_dot dot, t_view *view)
+int	iter_new_4(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -194,7 +194,7 @@ int	iter_new_4(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;
@@ -207,7 +207,7 @@ int	iter_new_4(t_dot dot, t_view *view)
 	return (iter);
 }
 
-int	iter_new_5(t_dot dot, t_view *view)
+int	iter_new_5(t_dot dot, t_env *env)
 {
 	int		iter;
 	float	tmp_re;
@@ -216,7 +216,7 @@ int	iter_new_5(t_dot dot, t_view *view)
 	dot.z_im = 0;
 	dot.z_re = 0;
 	iter = -1;
-	while (++iter < view->depth)
+	while (++iter < env->depth)
 	{
 		if (POW2(dot.z_re) + POW2(dot.z_im) > 4)
 			break ;

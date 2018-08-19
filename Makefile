@@ -11,9 +11,10 @@
 # **************************************************************************** #
 
 NAME = fractol
-HEADER = -I ./includes -I ./libft/includes 
-# FLAGS = -Wall -Werror -Wextra
-LIBFLAGS = -L ./libft -lft -lmlx -framework OpenGL -framework AppKit
+HEADER = -I ./includes -I ./libft/includes
+FLAGS = -Werror #-Wall -Wextra
+LIBFLAGS = -L ./libft -lft -lmlx -framework OpenGL -framework AppKit \
+								-framework OpenCL
 OBJ_DIR = obj
 SRC_DIR = src
 
