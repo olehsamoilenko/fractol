@@ -48,6 +48,39 @@ static void		init_img(t_env *env)
 // 	return (res);
 // }
 
+
+void			create_kernel(char *name, t_env *env)
+{
+	cl_int		err;
+
+	env->kernel.mem = clCreateBuffer(env->kernel.context, CL_MEM_READ_ONLY,
+		WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel, NULL, &err);
+	if (err)
+		ft_printf("kernel: error with clCreateBuffer\n");
+
+
+	char		*obj;
+	int			fd;
+	obj = ft_memalloc(MAX_SOURCE_SIZE);
+	fd = open("./kernel/fractol.cl", O_RDONLY);
+	read(fd, obj, MAX_SOURCE_SIZE);
+	close(fd);
+
+	env->kernel.program = clCreateProgramWithSource(env->kernel.context, 1,
+		(const char**)&obj, NULL, &err);
+	// f_memdel((void**)&obj);
+	if (err)
+		ft_printf("kernel: error with clCreateProgramWithSource\n", err);
+
+	err = clBuildProgram(env->kernel.program, 1, &env->kernel.device_id, NULL, NULL, NULL);
+	if (err)
+		ft_printf("kernel: error with clBuildProgram\n");
+
+	env->kernel.kernel = clCreateKernel(env->kernel.program, name, &err);
+	if (err)
+		ft_printf("%d kernel: error with clCreateKernel\n", err);
+}
+
 void			init_kernel(char *name, t_env *env)
 {
 	cl_int		err;
@@ -64,37 +97,9 @@ void			init_kernel(char *name, t_env *env)
 	if (err)
 		ft_printf("kernel: error with clCreateCommandQueue\n");
 
-
-	env->kernel.mem = clCreateBuffer(env->kernel.context, CL_MEM_READ_ONLY,
-		WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel, NULL, &err);
-	if (err)
-		ft_printf("kernel: error with clCreateBuffer\n");
+	create_kernel("mandelbrot2", env); // change!
 
 
-
-
-	char		*obj;
-	int			fd;
-	obj = ft_memalloc(MAX_SOURCE_SIZE);
-	fd = open("./kernel/fractol.cl", O_RDONLY);
-	read(fd, obj, MAX_SOURCE_SIZE);
-
-	env->kernel.program = clCreateProgramWithSource(env->kernel.context, 1,
-		(const char**)&obj, NULL, &err);
-	// f_memdel((void**)&obj);
-	if (err)
-		ft_printf("kernel: error with clCreateProgramWithSource\n");
-
-	err = clBuildProgram(env->kernel.program, 1, &env->kernel.device_id, NULL, NULL, NULL);
-	if (err)
-		ft_printf("kernel: error with clBuildProgram\n");
-
-	env->kernel.kernel = clCreateKernel(env->kernel.program, "func", &err);
-	if (err)
-		ft_printf("kernel: error with clCreateKernel\n");
-
-	
-	
 
 }
 
@@ -105,16 +110,16 @@ t_env			init(char *name)
 	env.mlx_ptr = mlx_init();
 	env.win_ptr = mlx_new_window(env.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "fractol");
 
-	if (ft_strequ(name, "mandelbrot"))
-		env.name = FRACTAL_MANDELBROT;
-	else if (ft_strequ(name, "julia"))
-		env.name = FRACTAL_JULIA;
-	else if (ft_strequ(name, "burning_ship"))
-		env.name = FRACTAL_BURNING_SHIP;
-	else if (ft_strequ(name, "mandelbar"))
-		env.name = FRACTAL_MANDELBAR;
-	else
-		usage();
+	// if (ft_strequ(name, "mandelbrot"))
+	// 	env.name = FRACTAL_MANDELBROT;
+	// else if (ft_strequ(name, "julia"))
+	// 	env.name = FRACTAL_JULIA;
+	// else if (ft_strequ(name, "burning_ship"))
+	// 	env.name = FRACTAL_BURNING_SHIP;
+	// else if (ft_strequ(name, "mandelbar"))
+	// 	env.name = FRACTAL_MANDELBAR;
+	// else
+	// 	usage();
 
 	env.depth = 20;
 	env.re_min = -2;

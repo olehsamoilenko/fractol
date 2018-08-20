@@ -22,10 +22,6 @@ LIST =	draw \
 		init \
 		key_hook \
 		main 
-		#julia 
-		#burning_ship 
-		#mandelbar 
-		#mandelbrot
 
 SRC = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(LIST)))
 OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(LIST)))

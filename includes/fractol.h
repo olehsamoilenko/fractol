@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIN_HEIGHT 720 // not here    
+# define WIN_HEIGHT 720
 # define WIN_WIDTH 1280
 
 
@@ -51,15 +51,14 @@
 
 
 
-# define FRACTAL_JULIA 1
-# define FRACTAL_MANDELBROT 2
-# define FRACTAL_BURNING_SHIP 3
-# define FRACTAL_MANDELBAR 4
+// # define FRACTAL_JULIA 1
+// # define FRACTAL_MANDELBROT 2
+// # define FRACTAL_BURNING_SHIP 3
+// # define FRACTAL_MANDELBAR 4
 
 
 # include "libft.h"
 # include "mlx.h"
-// # include <fcntl.h>
 # include <math.h>
 # include <OpenCL/opencl.h>
 # include <stdio.h> //trash
@@ -97,7 +96,10 @@ typedef struct	s_env
 	void		*mlx_ptr;
 	void		*win_ptr;
 
+	int			power;
+	int			color;
 	int			depth;
+
 	int			mouse_x;
 	int			mouse_y;
 	int			mouse_on;
@@ -107,17 +109,13 @@ typedef struct	s_env
 	double		im_min;
 	double		delta_im;
 
-	// int			(*iter_func[5])(t_dot, struct s_env *);
-	// int			(*iter_func)(t_dot, struct s_env *, int power);
-	int			name;
-	int			power;
-	int			color;
+
 
 	t_kernel	kernel;
 	t_img		img;
 }				t_env;
 
-// void			iterate(t_env *env);
+
 
 void			draw(t_env *env);
 
@@ -131,8 +129,7 @@ int				mouse_controls(int event, int x, int y, t_env *env);
 int				move_with_mouse(int x, int y, t_env *env);
 
 
-
-// void	build_kernel(char *file, t_env *env);
+void			create_kernel(char *name, t_env *env);
 
 
 #endif

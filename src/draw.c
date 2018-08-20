@@ -33,15 +33,12 @@ void	queue_kernel(t_env *env)
 {
 	cl_int	error;
 	int		i;
+
+	double	step_re = env->delta_re / (WIN_WIDTH - 1);
+	double	step_im = env->delta_im / (WIN_HEIGHT - 1);
 	
 	i = -1;
 	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(cl_mem), (void*)&env->kernel.mem);
-	if (error)
-		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
-	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(int), (void*)&env->name);
-	if (error)
-		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
-	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(int), (void*)&env->power);
 	if (error)
 		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
 	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(int), (void*)&env->color);
@@ -56,10 +53,10 @@ void	queue_kernel(t_env *env)
 	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(double), (void*)&env->im_min);
 	if (error)
 		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
-	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(double), (void*)&env->delta_re);
+	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(double), (void*)&step_re);
 	if (error)
 		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
-	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(double), (void*)&env->delta_im);
+	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(double), (void*)&step_im);
 	if (error)
 		ft_printf("kernel: error with parameter %d in clSetKernelArg\n", i);
 	error = clSetKernelArg(env->kernel.kernel, ++i, sizeof(int), (void*)&env->mouse_x);

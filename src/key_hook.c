@@ -79,11 +79,19 @@ int		key_hook(int key, void *v)
 
 	
 	if (key == KEY_ONE)
+	{
 		env->power = 1;
+	}
 	if (key == KEY_TWO)
+	{
 		env->power = 2;
+		create_kernel("mandelbrot2", env);
+	}
 	if (key == KEY_THREE)
+	{
 		env->power = 3;
+		create_kernel("mandelbrot3", env);
+	}
 	if (key == KEY_FOUR)
 		env->power = 4;
 	if (key == KEY_FIVE)
