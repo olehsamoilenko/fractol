@@ -18,14 +18,14 @@ LIBFLAGS = -L ./libft -lft -lmlx -framework OpenGL -framework AppKit \
 OBJ_DIR = obj
 SRC_DIR = src
 
-LIST =	burning_ship \
-		draw \
+LIST =	draw \
 		init \
-		julia \
 		key_hook \
-		main \
-		mandelbar \
-		mandelbrot
+		main 
+		#julia 
+		#burning_ship 
+		#mandelbar 
+		#mandelbrot
 
 SRC = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(LIST)))
 OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(LIST)))

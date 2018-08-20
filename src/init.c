@@ -20,50 +20,76 @@ static void		init_img(t_env *env)
 	env->img.bits_per_pixel /= 8;
 }
 
-void			init_kernel(t_env *env)
+// char			*create_source(char *name)
+// {
+// 	char	*res;
+// 	char	*buf;
+// 	int		fd;
+// 	char	*path;
+
+// 	fd = open("./kernel/addition.cl", O_RDONLY);
+// 	while(get_next_line(fd, &buf) == 1)
+// 	{
+// 		res = ft_strjoin(ft_strjoin(res, buf), "\n");
+// 		// leaks
+// 	}
+// 	close(fd);
+
+// 	path = ft_strjoin(ft_strjoin("./kernel/", name), ".cl");
+// 	fd = open(path, O_RDONLY);
+// 	while(get_next_line(fd, &buf) == 1)
+// 	{
+// 		res = ft_strjoin(ft_strjoin(res, buf), "\n");
+// 		// leaks
+// 	}
+// 	close(fd);
+// 	// ft_printf("%s\n", res);
+
+// 	return (res);
+// }
+
+void			init_kernel(char *name, t_env *env)
 {
-	t_kernel	kernel;
 	cl_int		err;
 	
-
-	kernel.device_id = NULL;
-	kernel.context = NULL;
-	kernel.command_queue = NULL;
-	kernel.mem = NULL;
-	kernel.program = NULL;
-	kernel.kernel = NULL;
-
-	err = clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 1, &kernel.device_id, NULL);
+	err = clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 1, &env->kernel.device_id, NULL);
 	if (err)
 		ft_printf("kernel: error with clGetDeviceIDs\n");
 
-	kernel.context = clCreateContext(NULL, 1, &kernel.device_id, NULL, NULL, &err);
+	env->kernel.context = clCreateContext(NULL, 1, &env->kernel.device_id, NULL, NULL, &err);
 	if (err)
 		ft_printf("kernel: error with clCreateContext\n");
 
-	kernel.command_queue = clCreateCommandQueue(kernel.context, kernel.device_id, 0, &err);
+	env->kernel.command_queue = clCreateCommandQueue(env->kernel.context, env->kernel.device_id, 0, &err);
 	if (err)
 		ft_printf("kernel: error with clCreateCommandQueue\n");
 
-	kernel.mem = clCreateBuffer(kernel.context, CL_MEM_READ_ONLY,
+
+	env->kernel.mem = clCreateBuffer(env->kernel.context, CL_MEM_READ_ONLY,
 		WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel, NULL, &err);
 	if (err)
 		ft_printf("kernel: error with clCreateBuffer\n");
 
+
+
+
 	char		*obj;
 	int			fd;
-	obj = (char*)ft_memalloc(MAX_SOURCE_SIZE);
-	fd = open("./kernel/func.cl", O_RDONLY);
+	obj = ft_memalloc(MAX_SOURCE_SIZE);
+	fd = open("./kernel/fractol.cl", O_RDONLY);
 	read(fd, obj, MAX_SOURCE_SIZE);
-	kernel.program = clCreateProgramWithSource(kernel.context, 1, (const char**)&obj, NULL, &err);
+
+	env->kernel.program = clCreateProgramWithSource(env->kernel.context, 1,
+		(const char**)&obj, NULL, &err);
+	// f_memdel((void**)&obj);
 	if (err)
 		ft_printf("kernel: error with clCreateProgramWithSource\n");
 
-	err = clBuildProgram(kernel.program, 1, &kernel.device_id, NULL, NULL, &err);
+	err = clBuildProgram(env->kernel.program, 1, &env->kernel.device_id, NULL, NULL, NULL);
 	if (err)
 		ft_printf("kernel: error with clBuildProgram\n");
 
-	kernel.kernel = clCreateKernel(kernel.program, "func", &err);
+	env->kernel.kernel = clCreateKernel(env->kernel.program, "func", &err);
 	if (err)
 		ft_printf("kernel: error with clCreateKernel\n");
 
@@ -79,14 +105,18 @@ t_env			init(char *name)
 	env.mlx_ptr = mlx_init();
 	env.win_ptr = mlx_new_window(env.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "fractol");
 
+	if (ft_strequ(name, "mandelbrot"))
+		env.name = FRACTAL_MANDELBROT;
+	else if (ft_strequ(name, "julia"))
+		env.name = FRACTAL_JULIA;
+	else if (ft_strequ(name, "burning_ship"))
+		env.name = FRACTAL_BURNING_SHIP;
+	else if (ft_strequ(name, "mandelbar"))
+		env.name = FRACTAL_MANDELBAR;
+	else
+		usage();
+
 	env.depth = 20;
-
-	// env.move_x = 0;
-	// env.move_y = 0;
-
-	// env.mouse_x = 0.5 * WIN_HEIGHT;
-	// env.mouse_y = 0.5 * WIN_WIDTH;
-
 	env.re_min = -2;
 	env.delta_re = 4;
 	env.im_min = -1;
@@ -96,51 +126,9 @@ t_env			init(char *name)
 	env.mouse_on = 0;
 	env.power = 2;
 	env.color = 0;
-	if (ft_strequ(name, "mandelbrot"))
-	{
-		env.iter_func[0] = &iter_mandelbrot_1;
-		env.iter_func[1] = &iter_mandelbrot_2;
-		env.iter_func[2] = &iter_mandelbrot_3;
-		env.iter_func[3] = &iter_mandelbrot_4;
-		env.iter_func[4] = &iter_mandelbrot_5;
-	}
-	else if (ft_strequ(name, "julia"))
-	{
-		env.iter_func[0] = &iter_julia_1;
-		env.iter_func[1] = &iter_julia_2;
-		env.iter_func[2] = &iter_julia_3;
-		env.iter_func[3] = &iter_julia_4;
-		env.iter_func[4] = &iter_julia_5;
-	}
-	else if (ft_strequ(name, "burning_ship"))
-	{
-		env.iter_func[0] = &iter_burning_ship_1;
-		env.iter_func[1] = &iter_burning_ship_2;
-		env.iter_func[2] = &iter_burning_ship_3;
-		env.iter_func[3] = &iter_burning_ship_4;
-		env.iter_func[4] = &iter_burning_ship_5;
-	}
-	else if (ft_strequ(name, "mandelbar"))
-	{
-		env.iter_func[0] = &iter_mandelbar_1;
-		env.iter_func[1] = &iter_mandelbar_2;
-		env.iter_func[2] = &iter_mandelbar_3;
-		env.iter_func[3] = &iter_mandelbar_4;
-		env.iter_func[4] = &iter_mandelbar_5;
-	}
-	else if (ft_strequ(name, "new"))
-	{
-		env.iter_func[0] = &iter_new_1;
-		env.iter_func[1] = &iter_new_2;
-		env.iter_func[2] = &iter_new_3;
-		env.iter_func[3] = &iter_new_4;
-		env.iter_func[4] = &iter_new_5;
-	}
-	else
-	{
-		usage();
-	}
+
+
 	init_img(&env);
-	init_kernel(&env);
+	init_kernel(name, &env);
 	return (env);
 }

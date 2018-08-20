@@ -14,6 +14,7 @@
 
 static int	exit_func(void)
 {
+	// destroy window
 	exit(1);
 }
 
@@ -25,12 +26,21 @@ void	usage(void)
 }
 
 
+// int		fractal_exists(char *name)
+// {
+// 	if (!ft_strequ(name, "mandelbrot") && !ft_strequ(name, "julia") &&
+// 		!ft_strequ(name, "burning_ship") && !ft_strequ(name, "mandelbar"))
+// 		return (0);
+// 	return (1);
+// }
+
+
 
 int		main(int args, char **argv)
 {
 	t_env	env;
 
-	if (args != 2)
+	if (args != 2/* || !fractal_exists(argv[1])*/)
 	{
 		usage();
 	}

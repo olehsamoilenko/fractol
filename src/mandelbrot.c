@@ -12,13 +12,11 @@
 
 #include "fractol.h"
 
-
-
 int	iter_mandelbrot_1(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -38,8 +36,8 @@ int	iter_mandelbrot_1(t_dot dot, t_env *env)
 int	iter_mandelbrot_2(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -59,8 +57,8 @@ int	iter_mandelbrot_2(t_dot dot, t_env *env)
 int	iter_mandelbrot_3(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -80,8 +78,8 @@ int	iter_mandelbrot_3(t_dot dot, t_env *env)
 int	iter_mandelbrot_4(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -99,11 +97,12 @@ int	iter_mandelbrot_4(t_dot dot, t_env *env)
 	return (iter);
 }
 
+
 int	iter_mandelbrot_5(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -125,8 +124,8 @@ int	iter_mandelbrot_5(t_dot dot, t_env *env)
 int	iter_new_1(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -146,8 +145,8 @@ int	iter_new_1(t_dot dot, t_env *env)
 int	iter_new_2(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -167,8 +166,8 @@ int	iter_new_2(t_dot dot, t_env *env)
 int	iter_new_3(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -188,8 +187,8 @@ int	iter_new_3(t_dot dot, t_env *env)
 int	iter_new_4(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -210,8 +209,8 @@ int	iter_new_4(t_dot dot, t_env *env)
 int	iter_new_5(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;

@@ -25,8 +25,6 @@ int			move_with_mouse(int x, int y, t_env *env)
 
 int			mouse_controls(int event, int x, int y, t_env *env)
 {
-	float	re_coord;
-	float	im_coord;
 	double	k;
 
 	// x = 0;
@@ -37,18 +35,18 @@ int			mouse_controls(int event, int x, int y, t_env *env)
 	{
 		if (event == MOUSE_DOWN)
 		{
-			k = (float)10 / 9;
+			k = (double)10 / 9;
 
 		}
 		else
 		{
-			k = (float)9/ 10;
+			k = (double)9/ 10;
 
 		}
 		env->delta_im *= k;
 		env->delta_re *= k;
-		env->re_min = env->re_min + ((float)x / WIN_WIDTH) * env->delta_re / k * (1 - k);
-		env->im_min = env->im_min - ((float)(WIN_HEIGHT - y) / WIN_HEIGHT) * env->delta_im / k * (1 - k);
+		env->re_min = env->re_min + ((double)x / WIN_WIDTH) * env->delta_re / k * (1 - k);
+		env->im_min = env->im_min - ((double)(WIN_HEIGHT - y) / WIN_HEIGHT) * env->delta_im / k * (1 - k);
 		// printf("re_min: %f im_min: %f\n", env->re_min, env->im_min);
 
 	}
@@ -68,7 +66,7 @@ int		key_hook(int key, void *v)
 		env->color = (env->color + 1) % 6;
 	else if (key == KEY_SPACE)
 		env->mouse_on = (env->mouse_on + 1) % 2;
-	// float delta = env->re_max - env->re_min;
+	// double delta = env->re_max - env->re_min;
 
 	if (key == KEY_LEFT)
 		env->re_min -= 0.05 * env->delta_re;

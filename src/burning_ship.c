@@ -15,8 +15,8 @@
 int	iter_burning_ship_1(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -38,8 +38,8 @@ int	iter_burning_ship_1(t_dot dot, t_env *env)
 int	iter_burning_ship_2(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -61,8 +61,8 @@ int	iter_burning_ship_2(t_dot dot, t_env *env)
 int	iter_burning_ship_3(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -84,8 +84,8 @@ int	iter_burning_ship_3(t_dot dot, t_env *env)
 int	iter_burning_ship_4(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
@@ -107,8 +107,8 @@ int	iter_burning_ship_4(t_dot dot, t_env *env)
 int	iter_burning_ship_5(t_dot dot, t_env *env)
 {
 	int		iter;
-	float	tmp_re;
-	float	tmp_im;
+	double	tmp_re;
+	double	tmp_im;
 
 	dot.z_im = 0;
 	dot.z_re = 0;
