@@ -29,7 +29,8 @@ void	usage(void)
 int		fractal_exists(char *name)
 {
 	if (!ft_strequ(name, "mandelbrot") && !ft_strequ(name, "julia") &&
-		!ft_strequ(name, "burning_ship") && !ft_strequ(name, "mandelbar"))
+		!ft_strequ(name, "burning_ship") && !ft_strequ(name, "mandelbar") &&
+		!ft_strequ(name, "bocal"))
 		return (0);
 	return (1);
 }

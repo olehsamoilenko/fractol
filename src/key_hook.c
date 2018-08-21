@@ -79,25 +79,21 @@ int		key_hook(int key, void *v)
 	if (key == KEY_DOWN)
 		env->im_min += 0.05 * env->delta_im;
 
-	
-	if (key == KEY_ONE)
+	if (key == KEY_ONE || key == KEY_TWO || key == KEY_THREE || 
+		key == KEY_FOUR || key == KEY_FIVE)
 	{
-		env->power = 1;
+		if (key == KEY_ONE)
+			env->power = 1;
+		else if (key == KEY_TWO)
+			env->power = 2;
+		else if (key == KEY_THREE)
+			env->power = 3;
+		else if (key == KEY_FOUR)
+			env->power = 4;
+		else if (key == KEY_FIVE)
+			env->power = 5;
+		create_kernel(env);
 	}
-	if (key == KEY_TWO)
-	{
-		env->power = 2;
-		create_kernel("mandelbrot2", env);
-	}
-	if (key == KEY_THREE)
-	{
-		env->power = 3;
-		create_kernel("mandelbrot3", env);
-	}
-	if (key == KEY_FOUR)
-		env->power = 4;
-	if (key == KEY_FIVE)
-		env->power = 5;
 
 	key == KEY_PLUS ? env->depth += 1 : 0;
 	if (key == KEY_MINUS)

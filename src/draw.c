@@ -80,8 +80,6 @@ void	queue_kernel(t_env *env)
 
 void	draw(t_env *env)
 {
-
-
 	ft_bzero(env->img.img, WIN_HEIGHT * WIN_WIDTH * env->img.bits_per_pixel); // yes?
 	queue_kernel(env);
 

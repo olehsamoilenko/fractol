@@ -23,7 +23,6 @@ LIST =			draw \
 				init \
 				key_hook \
 				main 
-
 OBJ = $(addprefix obj/, $(addsuffix .o, $(LIST)))
 
 all: $(NAME)

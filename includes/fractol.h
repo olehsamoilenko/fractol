@@ -49,14 +49,6 @@
 # define MAX_SOURCE_SIZE 0x400000
 
 
-
-
-// # define FRACTAL_JULIA 1
-// # define FRACTAL_MANDELBROT 2
-// # define FRACTAL_BURNING_SHIP 3
-// # define FRACTAL_MANDELBAR 4
-
-
 # include "libft.h"
 # include "mlx.h"
 # include <math.h>
@@ -96,6 +88,7 @@ typedef struct	s_env
 	void		*mlx_ptr;
 	void		*win_ptr;
 
+	char		*name;
 	int			power;
 	int			color;
 	int			depth;
@@ -108,8 +101,6 @@ typedef struct	s_env
 	double		delta_re;
 	double		im_min;
 	double		delta_im;
-
-
 
 	t_kernel	kernel;
 	t_img		img;
@@ -129,7 +120,7 @@ int				mouse_controls(int event, int x, int y, t_env *env);
 int				move_with_mouse(int x, int y, t_env *env);
 
 
-void			create_kernel(char *name, t_env *env);
+void			create_kernel(t_env *env);
 
 
 #endif
