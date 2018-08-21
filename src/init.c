@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-
+ 
 static void		init_img(t_env *env)
 {
 	env->img.img_ptr = mlx_new_image(env->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
@@ -61,13 +61,14 @@ void			create_kernel(char *name, t_env *env)
 
 	char		*obj;
 	int			fd;
+	size_t		size;
 	obj = ft_memalloc(MAX_SOURCE_SIZE);
 	fd = open("./kernel/fractol.cl", O_RDONLY);
-	read(fd, obj, MAX_SOURCE_SIZE);
+	size = read(fd, obj, MAX_SOURCE_SIZE);
 	close(fd);
 
 	env->kernel.program = clCreateProgramWithSource(env->kernel.context, 1,
-		(const char**)&obj, NULL, &err);
+		(const char**)&obj, (const size_t*)&size, &err);
 	// f_memdel((void**)&obj);
 	if (err)
 		ft_printf("kernel: error with clCreateProgramWithSource\n", err);
@@ -121,7 +122,7 @@ t_env			init(char *name)
 	// else
 	// 	usage();
 
-	env.depth = 20;
+	env.depth = 50;
 	env.re_min = -2;
 	env.delta_re = 4;
 	env.im_min = -1;

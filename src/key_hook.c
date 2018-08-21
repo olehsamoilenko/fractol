@@ -35,11 +35,13 @@ int			mouse_controls(int event, int x, int y, t_env *env)
 	{
 		if (event == MOUSE_DOWN)
 		{
+			env->depth -= 3;
 			k = (double)10 / 9;
 
 		}
 		else
 		{
+			env->depth += 3;
 			k = (double)9/ 10;
 
 		}

@@ -10,35 +10,38 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
-HEADER = -I ./includes -I ./libft/includes
-FLAGS = -Werror #-Wall -Wextra
-LIBFLAGS = -L ./libft -lft -lmlx -framework OpenGL -framework AppKit \
-								-framework OpenCL
-OBJ_DIR = obj
-SRC_DIR = src
+NAME =			fractol
+HEADER =		-I ./includes \
+				-I ./libft/includes
+CFLAGS =		-Werror #-Wall -Wextra
+LIBS =			-lft -L ./libft \
+				-lmlx
+FRAMEWORKS =	-framework OpenGL \
+				-framework AppKit \
+				-framework OpenCL
+LIST =			draw \
+				init \
+				key_hook \
+				main 
 
-LIST =	draw \
-		init \
-		key_hook \
-		main 
-
-SRC = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(LIST)))
-OBJ = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(LIST)))
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@gcc $(FLAGS) -o $@ -c $< $(HEADER)
+OBJ = $(addprefix obj/, $(addsuffix .o, $(LIST)))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+obj/%.o: src/%.c
+	@gcc $(CFLAGS) -c $< -o $@ $(HEADER)
+
+$(NAME): obj $(OBJ)
 	@make -C libft
-	@gcc $(FLAGS) $(LIBFLAGS) $(OBJ) -o $(NAME) $(HEADER)
+	@gcc $(OBJ) -o $(NAME) $(LIBS) $(FRAMEWORKS)
+
+obj:
+	@mkdir obj
 
 clean:
 	@make -C libft clean
-	@rm -f $(OBJ)
-
+	@rm -rf obj
+	
 fclean: clean
 	@make -C libft fclean
 	@rm -f $(NAME)
