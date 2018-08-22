@@ -20,39 +20,13 @@ static void		init_img(t_env *env)
 	env->img.bits_per_pixel /= 8;
 }
 
-// char			*create_source(char *name)
-// {
-// 	char	*res;
-// 	char	*buf;
-// 	int		fd;
-// 	char	*path;
-
-// 	fd = open("./kernel/addition.cl", O_RDONLY);
-// 	while(get_next_line(fd, &buf) == 1)
-// 	{
-// 		res = ft_strjoin(ft_strjoin(res, buf), "\n");
-// 		// leaks
-// 	}
-// 	close(fd);
-
-// 	path = ft_strjoin(ft_strjoin("./kernel/", name), ".cl");
-// 	fd = open(path, O_RDONLY);
-// 	while(get_next_line(fd, &buf) == 1)
-// 	{
-// 		res = ft_strjoin(ft_strjoin(res, buf), "\n");
-// 		// leaks
-// 	}
-// 	close(fd);
-// 	// ft_printf("%s\n", res);
-
-// 	return (res);
-// }
-
-
 void			create_kernel(t_env *env)
 {
 	cl_int		err;
 
+	// clReleaseMemObject(env->kernel.mem);
+	// clReleaseProgram(env->kernel.program);
+	// clReleaseKernel(env->kernel.kernel);
 	env->kernel.mem = clCreateBuffer(env->kernel.context, CL_MEM_READ_ONLY,
 		WIN_WIDTH * WIN_HEIGHT * env->img.bits_per_pixel, NULL, &err);
 	if (err)
@@ -104,11 +78,21 @@ void			init_kernel(t_env *env)
 	if (err)
 		ft_printf("kernel: error with clBuildProgram\n");
 	
-	create_kernel(env); // change!
+	create_kernel(env);
+}
 
 
+
+void			default_settings(t_env *env)
+{
+	env->depth = 50;
+	env->re_min = -2.3;
+	env->im_min = 1.1;
+	env->delta_re = 4.4;
+	env->delta_im = 2.2;
 
 }
+
 
 t_env			init(char *name)
 {
@@ -119,18 +103,15 @@ t_env			init(char *name)
 
 
 	env.name = name;
-	env.depth = 50;
-	env.re_min = -2;
-	env.delta_re = 4;
-	env.im_min = -1;
-	env.delta_im = 2;
-	env.mouse_x = WIN_HEIGHT / 2;
-	env.mouse_y = WIN_WIDTH / 2;
+	env.mouse_x = 363;
+	env.mouse_y = 459;
 	env.mouse_on = 0;
 	env.power = 2;
 	env.color = 0;
+	env.help = 1;
+	env.start = 1;
 
-
+	default_settings(&env);
 	init_img(&env);
 	init_kernel(&env);
 	return (env);

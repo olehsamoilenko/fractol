@@ -18,10 +18,15 @@ static int	exit_func(void)
 	exit(1);
 }
 
+
+
+
+
 void	usage(void)
 {
 	ft_putstr("usage: ./fractol [fractal]\nAvaliable fractals:	mandelbrot,\n\
-			julia,\n			burning_ship,\n			mandelbar\n");
+			julia,\n			burning_ship,\n			mandelbar,\n\
+			brain,\n			feigenbaum\n");
 	exit(0);
 }
 
@@ -30,10 +35,11 @@ int		fractal_exists(char *name)
 {
 	if (!ft_strequ(name, "mandelbrot") && !ft_strequ(name, "julia") &&
 		!ft_strequ(name, "burning_ship") && !ft_strequ(name, "mandelbar") &&
-		!ft_strequ(name, "bocal"))
+		!ft_strequ(name, "brain") && !ft_strequ(name, "feigenbaum"))
 		return (0);
 	return (1);
 }
+
 
 
 

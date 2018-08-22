@@ -13,8 +13,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIN_HEIGHT 720
-# define WIN_WIDTH 1280
+# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1920
 
 
 # define EVENT_KEYS 2
@@ -24,7 +24,8 @@
 # define KEY_ESC 53
 // # define KEY_I 34
 # define KEY_C 8
-
+# define KEY_H 4
+# define KEY_BACKSPACE 51
 # define KEY_SPACE 49
 
 # define KEY_UP 126
@@ -43,8 +44,13 @@
 
 # define MOUSE_UP 4
 # define MOUSE_DOWN 5
+
+# define ALPHA_HEIGHT 22
+# define ALPHA_WIDTH 10
 // # define MOUSE_LEFT 1
 // # define MOUSE_RIGHT 2
+# define RGB(r, g, b) (r << 16 | g << 8 | b)
+# define GLOBAL_WORK_SIZE (size_t[3]){WIN_WIDTH, WIN_HEIGHT, 0}
 
 # define MAX_SOURCE_SIZE 0x400000
 
@@ -93,6 +99,9 @@ typedef struct	s_env
 	int			color;
 	int			depth;
 
+	int			help;
+	int			start;
+
 	int			mouse_x;
 	int			mouse_y;
 	int			mouse_on;
@@ -121,6 +130,7 @@ int				move_with_mouse(int x, int y, t_env *env);
 
 
 void			create_kernel(t_env *env);
+void			default_settings(t_env *env);
 
 
 #endif
