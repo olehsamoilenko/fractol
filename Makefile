@@ -6,14 +6,14 @@
 #    By: osamoile <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/01 15:53:40 by osamoile          #+#    #+#              #
-#    Updated: 2018/08/01 15:53:44 by osamoile         ###   ########.fr        #
+#    Updated: 2018/08/23 19:21:36 by osamoile         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			fractol
 HEADER =		-I ./includes \
 				-I ./libft/includes
-CFLAGS =		-Werror #-Wall -Wextra
+FLAGS =			-Wall -Werror -Wextra
 LIBS =			-lft -L ./libft \
 				-lmlx
 FRAMEWORKS =	-framework OpenGL \
