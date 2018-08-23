@@ -733,3 +733,221 @@ __kernel void feigenbaum5(__global int *img, int color, int depth, double re_min
 	}
 	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
 }
+
+__kernel void leaf1(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = z_re;
+		tmp_im = z_im;
+		z_re = tmp_re + c_re / (POW2(c_re) + POW2(c_im));
+		z_im = tmp_im - c_im / (POW2(c_re) + POW2(c_im));
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void leaf2(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW2(z_re) - POW2(z_im);
+		tmp_im = 2 * (z_re) * (z_im);
+		z_re = tmp_re + c_re / (POW2(c_re) + POW2(c_im));
+		z_im = tmp_im - c_im / (POW2(c_re) + POW2(c_im));
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void leaf3(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW3(z_re) - 3 * z_re * POW2(z_im);
+		tmp_im = 3 * POW2(z_re) * z_im - POW3(z_im);
+		z_re = tmp_re + c_re / (POW2(c_re) + POW2(c_im));
+		z_im = tmp_im - c_im / (POW2(c_re) + POW2(c_im));
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void leaf4(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW4(z_re) + POW4(z_im) - 6 * POW2(z_re) * POW2(z_im);
+		tmp_im = 4 * z_im * POW3(z_re) - 4 * POW3(z_im) * z_re;
+		z_re = tmp_re + c_re / (POW2(c_re) + POW2(c_im));
+		z_im = tmp_im - c_im / (POW2(c_re) + POW2(c_im));
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void leaf5(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = 5 * POW4(z_im) * z_re - 10 * POW2(z_im) * POW3(z_re) + POW5(z_re);
+		tmp_im = POW5(z_im) - 10 * POW3(z_im) * POW2(z_re) + 5 * POW4(z_re) * z_im;
+		z_re = tmp_re + c_re / (POW2(c_re) + POW2(c_im));
+		z_im = tmp_im - c_im / (POW2(c_re) + POW2(c_im));
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void hyper1(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = z_re;
+		tmp_im = z_im;
+		z_re = tmp_re + cos(c_re) * cosh(c_im);
+		z_im = tmp_im + sin(c_re) * sinh(c_im);
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void hyper2(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW2(z_re) - POW2(z_im);
+		tmp_im = 2 * (z_re) * (z_im);
+		z_re = tmp_re + cos(c_re) * cosh(c_im);
+		z_im = tmp_im + sin(c_re) * sinh(c_im);
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void hyper3(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW3(z_re) - 3 * z_re * POW2(z_im);
+		tmp_im = 3 * POW2(z_re) * z_im - POW3(z_im);
+		z_re = tmp_re + cos(c_re) * cosh(c_im);
+		z_im = tmp_im + sin(c_re) * sinh(c_im);
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void hyper4(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = POW4(z_re) + POW4(z_im) - 6 * POW2(z_re) * POW2(z_im);
+		tmp_im = 4 * z_im * POW3(z_re) - 4 * POW3(z_im) * z_re;
+		z_re = tmp_re + cos(c_re) * cosh(c_im);
+		z_im = tmp_im + sin(c_re) * sinh(c_im);
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}
+
+__kernel void hyper5(__global int *img, int color, int depth, double re_min, double im_min, double step_re, double step_im, int mouse_x, int mouse_y)
+{
+	int		x = get_global_id(0);
+	int		y = get_global_id(1);
+	int		iter = -1;
+	double	tmp_re;
+	double	tmp_im;
+	double	c_re = re_min + x * step_re;
+	double	c_im = im_min - (WIN_HEIGHT - y) * step_im;
+	double	z_re = 0;
+	double	z_im = 0;
+
+	while (++iter < depth && POW2(z_re) + POW2(z_im) < 4)
+	{
+		tmp_re = 5 * POW4(z_im) * z_re - 10 * POW2(z_im) * POW3(z_re) + POW5(z_re);
+		tmp_im = POW5(z_im) - 10 * POW3(z_im) * POW2(z_re) + 5 * POW4(z_re) * z_im;
+		z_re = tmp_re + cos(c_re) * cosh(c_im);
+		z_im = tmp_im + sin(c_re) * sinh(c_im);
+	}
+	img[WIN_WIDTH * y + x] = iterating_rgb(color, iter, depth);
+}

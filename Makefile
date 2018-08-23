@@ -21,6 +21,7 @@ FRAMEWORKS =	-framework OpenGL \
 				-framework OpenCL
 LIST =			draw \
 				init \
+				intro \
 				key_hook \
 				main 
 OBJ =			$(addprefix obj/, $(addsuffix .o, $(LIST)))
