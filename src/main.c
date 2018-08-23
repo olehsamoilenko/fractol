@@ -14,7 +14,6 @@
 
 int			exit_func(void)
 {
-	system("leaks fractol");
 	exit(1);
 }
 
