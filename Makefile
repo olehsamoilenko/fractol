@@ -6,7 +6,7 @@
 #    By: osamoile <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/01 15:53:40 by osamoile          #+#    #+#              #
-#    Updated: 2018/08/23 19:21:36 by osamoile         ###   ########.fr        #
+#    Updated: 2018/08/24 14:01:27 by osamoile         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ =			$(addprefix obj/, $(addsuffix .o, $(LIST)))
 all: $(NAME)
 
 obj/%.o: src/%.c
-	@gcc $(CFLAGS) -c $< -o $@ $(HEADER)
+	@gcc $(FLAGS) -c $< -o $@ $(HEADER)
 
 $(NAME): obj $(OBJ)
 	@make -C libft
