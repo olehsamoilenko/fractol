@@ -45,7 +45,9 @@ static void	help(t_env *env)
 	mlx_string_put(env->mlx_ptr, env->win_ptr, WIN_WIDTH - 220, 10,
 		RGB(255, 255, 255), "RESET     : BACKSPACE");
 	mlx_string_put(env->mlx_ptr, env->win_ptr, WIN_WIDTH - 220,
-		WIN_HEIGHT - 110, RGB(255, 255, 255), "ZOOM      : WHEEL");
+		WIN_HEIGHT - 130, RGB(255, 255, 255), "ZOOM      : WHEEL");
+	mlx_string_put(env->mlx_ptr, env->win_ptr, WIN_WIDTH - 220,
+		WIN_HEIGHT - 110, RGB(255, 255, 255), "MOUSE ON  : SPACE");
 	mlx_string_put(env->mlx_ptr, env->win_ptr, WIN_WIDTH - 220,
 		WIN_HEIGHT - 90, RGB(255, 255, 255), "COLORS    : C");
 	mlx_string_put(env->mlx_ptr, env->win_ptr, WIN_WIDTH - 220,
